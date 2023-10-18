@@ -1,9 +1,9 @@
-{% extends 'users/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     <br>
-    <div class="alert alert-success" role="alert">
-        <h3 style="text-align: center;">Sign Up</h3>
+    <div>
+        <h3>Sign Up</h3>
     </div>
     <br>
     <form method="post">
@@ -12,9 +12,6 @@
         <p>
             {{ field.label_tag }}<br>
             {{ field }}
-            {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-            {% endif %}
             {% for error in field.errors %}
             <p style="color: red">{{ error }}</p>
             {% endfor %}

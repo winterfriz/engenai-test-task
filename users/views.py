@@ -3,10 +3,6 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 
 
-def home(request):
-    return render(request, 'users/home.html')
-
-
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -16,7 +12,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('document-list')
     else:
         form = SignupForm()
 

@@ -1,31 +1,46 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "documents/base.html" %}
+{% block documents %}
 <div class="card-body">
-    <h4>Book List</h4>
+    <h4>Document List</h4>
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'document-list-search' %}">
+        <div class="form-group">
+            <label>
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+            </label>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
-                <th scope="col">Author</th>
-                <th scope="col">Year</th>
-                <th scope="col">Action</th>
+                <th scope="col">Embedding</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
-            {% for book in books %}
+            {% for document in documents %}
             <tr>
-                <td>{{ book.title }}</td>
-                <td>{{ book.description }}</td>
-                <td>{{ book.author }}</td>
-                <td>{{ book.year }}</td>
-                <td><a type="button" class="btn btn-warning" href="/book-update/{{ book.id }}">Update</a>
-                    <a type="button" class="btn btn-danger" href="/book-delete/{{ book.id }}">Delete</a>
+                <td>{{ document.title }}</td>
+                <td>{{ document.description }}</td>
+                <td>{{ document.embedding }}</td>
+                <td>{{ document.status }}</td>
+                <td>
+                {% if document.similarity %}
+                    {{ document.similarity }}
+                {% endif %}
+            </td>
+                <td><a type="button" class="btn btn-warning" href="update/{{ document.id }}">Update</a>
+                    <a type="button" class="btn btn-danger" href="delete/{{ document.id }}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a type="button" class="btn btn-success" href="{%url 'book-create' %}">Create</a>
+    <a type="button" class="btn btn-success" href="{%url 'document-create' %}">Create</a>
 </div>
 {% endblock %}

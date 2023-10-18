@@ -26,6 +26,8 @@ load_dotenv(find_dotenv())
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
+OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -41,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # config
+    'users.apps.AccountsConfig',
+    'documents.apps.DocumentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +63,7 @@ ROOT_URLCONF = 'engenai_test_task.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,8 +84,12 @@ WSGI_APPLICATION = 'engenai_test_task.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': 'localhost',  # Set to the PostgreSQL server hostname or IP
+        'PORT': os.environ['DB_PORT'],  # Leave empty to use the default PostgreSQL port (5432)
     }
 }
 
@@ -125,3 +134,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/documents'

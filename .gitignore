@@ -1,0 +1,12 @@
+# Django
+__pycache__
+*.pyc
+
+# Local development settings
+local_settings.py
+
+# IDE-specific files
+.idea/
+
+# Ignore environment-specific settings (e.g., .env files)
+.env

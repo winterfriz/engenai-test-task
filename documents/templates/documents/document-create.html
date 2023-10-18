@@ -1,11 +1,11 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "documents/base.html" %}
+{% block documents %}
 <div class="card-body">
-    <h5>Create New Book</h5>
+    <h5>Create New Document</h5>
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <a type="button" class="btn btn-danger" href="{%url 'book-list' %}">Cancel</a>
+        <a type="button" class="btn btn-danger" href="{%url 'document-list' %}">Cancel</a>
         <button type="submit" class="btn btn-success">Create</button>
     </form>
 </div>
