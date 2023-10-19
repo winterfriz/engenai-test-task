@@ -16,7 +16,7 @@ class Document(models.Model):
         (COMPLETED, 'Completed'),
     ]
 
-    title = models.CharField(db_column='title', max_length=100, blank=False)
+    title = models.CharField(db_column='title', max_length=100)
     description = models.TextField(db_column='description', max_length=1000, blank=False)
     embedding = VectorField(dimensions=consts.DIMENSIONS, null=True,)
     status = models.CharField(
@@ -27,5 +27,12 @@ class Document(models.Model):
     last_search_date = models.DateTimeField(default=None, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class SearchQuery(models.Model):
+    query = models.CharField(max_length=1000,)
+    embedding = VectorField(dimensions=consts.DIMENSIONS, null=True,)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 
